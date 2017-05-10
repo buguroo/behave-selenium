@@ -1,0 +1,3 @@
+[submodule "behave_selenium/steps/stepcollection"]
+	path = behave_selenium/steps/stepcollection
+	url = https://github.com/buguroo/behave-stepcollection.git
