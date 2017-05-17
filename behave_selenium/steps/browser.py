@@ -6,8 +6,10 @@ import contextlib
 import io
 import queue
 import threading
+import warnings
 
 from selenium import webdriver
+from selenium.common.exceptions import WebDriverException
 
 IOHandler = namedtuple('IOHandler', ['thread', 'queue'])
 
@@ -34,16 +36,21 @@ class Browser:
         last_result = None
         while self.running:
             with self.driver() as driver:
-                result = driver.execute_script(script)
-                if result != last_result and result is not None:
-                    self.io[io_name].queue.put(result)
-                    last_result = result
+                try:
+                    result = driver.execute_script(script)
+                except WebDriverException as exc:
+                    warnings.warn("WebDriver exception received %s" % exc,
+                                  RuntimeWarning)
                 else:
-                    last_result = None
-                    sleep(self.wait_time)
+                    if result != last_result and result is not None:
+                        self.io[io_name].queue.put(result)
+                        last_result = result
+                    else:
+                        last_result = None
+                        sleep(self.wait_time)
 
     def register_console_io(self):
-        pool_script = 'return window.__behave_selenium["log"].shift();'
+        pool_script = """return window.__behave_selenium["log"].shift();"""
 
         io_handler = IOHandler(
             threading.Thread(
