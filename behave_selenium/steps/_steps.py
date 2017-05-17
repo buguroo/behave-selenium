@@ -42,4 +42,4 @@ def inspecting_of_happens_that(context, stream, alias="default", timeout=None):
 
 
 def the_browser_holds_that(context, alias="default"):
-    assert context.selenium_browser[alias].execute_script(context.text)
+    assert context.selenium_browsers[alias].execute_script(context.text)
