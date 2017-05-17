@@ -26,8 +26,6 @@ def i_open_the_browser(context, alias):
 def i_load_the_url_in_the_browser(context, url, alias="default"):
     """
     """
-    import ipdb
-    ipdb.set_trace()
     context.selenium_browsers[alias].get(url)
 
 
@@ -41,3 +39,7 @@ def inspecting_of_happens_that(context, stream, alias="default", timeout=None):
 
     context.selenium_browsers[alias].check_stream(
         stream, *checks, timeout=timeout)
+
+
+def the_browser_holds_that(context, alias="default"):
+    assert context.selenium_browser[alias].execute_script(context.text)

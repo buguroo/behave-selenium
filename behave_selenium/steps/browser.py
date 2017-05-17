@@ -44,18 +44,18 @@ class Browser:
 
     def register_console_io(self):
         with self.driver() as driver:
-            driver.execute_script("""
-
-/* Initialize IO data */
-window.__behave_selenium['_fn_logger'] = window.console.log.bind(window.console);
-window.__behave_selenium['log'] = [];
-
-/* Hook window.console.log */
-window.console.log = function (msg) {
-    window.__behave_selenium['log'].push(msg);
-    return window.__behave_selenium['_fn_logger'](msg);
-}
-            """)
+            #            driver.execute_script("""
+            #
+            #/* Initialize IO data */
+            #window.__behave_selenium['_fn_logger'] = window.console.log.bind(window.console);
+            #window.__behave_selenium['log'] = [];
+            #
+            #/* Hook window.console.log */
+            #window.console.log = function (msg) {
+            #    window.__behave_selenium['log'].push(msg);
+            #    return window.__behave_selenium['_fn_logger'](msg);
+            #}
+            #            """)
 
         pool_script = 'return window.__behave_selenium["log"].shift();'
 
@@ -72,22 +72,22 @@ window.console.log = function (msg) {
 
     def register_DOM_io(self):
         with self.driver() as driver:
-            driver.execute_script("""
-
-/* Initialize IO data */
-window.__behave_selenium['dom'] = null;
-
-window.__behave_selenium['_fn_getDOM'] = function() {
-    var newdom = document.documentElement.innerHTML;
-    if (newdom != window.__behave_selenium['dom']) {
-        window.__behave_selenium['dom'] = newdom;
-        return newdom;
-    } else {
-        return null;
-    }
-}
-
-            """)
+            #            driver.execute_script("""
+            #
+            #/* Initialize IO data */
+            #window.__behave_selenium['dom'] = null;
+            #
+            #window.__behave_selenium['_fn_getDOM'] = function() {
+            #    var newdom = document.documentElement.innerHTML;
+            #    if (newdom != window.__behave_selenium['dom']) {
+            #        window.__behave_selenium['dom'] = newdom;
+            #        return newdom;
+            #    } else {
+            #        return null;
+            #    }
+            #}
+            #
+            #            """)
 
         io_handler = IOHandler(
             threading.Thread(
@@ -99,21 +99,14 @@ window.__behave_selenium['_fn_getDOM'] = function() {
         io_handler.thread.start()
         self.io["dom"] = io_handler
 
-    def get(self, url):
-        self.finalize()
-        with self.driver() as driver:
-            result = driver.get(url)
-        self.initialize()
-        return result
-
     def initialize(self):
         self.running = True
 
         # Initialize browser struct
-        with self.driver() as driver:
-            driver.execute_script("""
-                window.__behave_selenium = {};
-            """)
+        # with self.driver() as driver:
+        #     driver.execute_script("""
+        #         window.__behave_selenium = {};
+        #     """)
 
         self.register_console_io()
         self.register_DOM_io()
@@ -175,3 +168,14 @@ window.__behave_selenium['_fn_getDOM'] = function() {
 
         for check in checks:
             check.close()
+
+    def get(self, url):
+        self.finalize()
+        with self.driver() as driver:
+            result = driver.get(url)
+        self.initialize()
+        return result
+
+    def execute_script(self, script):
+        with self.driver() as driver:
+            return driver.execute_script(script)
