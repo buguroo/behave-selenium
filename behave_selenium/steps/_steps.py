@@ -1,3 +1,5 @@
+import importlib
+
 from .browser import Browser
 
 
@@ -24,10 +26,12 @@ def i_open_the_browser(context, alias):
 def i_load_the_url_in_the_browser(context, url, alias="default"):
     """
     """
+    import ipdb
+    ipdb.set_trace()
     context.selenium_browsers[alias].get(url)
 
 
-def inspecting_of_i_see(context, stream, alias="default", timeout=None):
+def inspecting_of_happens_that(context, stream, alias="default", timeout=None):
     """
     """
     ns = importlib.import_module(

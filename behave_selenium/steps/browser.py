@@ -165,6 +165,7 @@ window.__behave_selenium['_fn_getDOM'] = function() {
                         # All readers finished, we exit
                         break
             else:
+                print(line)
                 for check in checks.copy():
                     try:
                         check.send(line)

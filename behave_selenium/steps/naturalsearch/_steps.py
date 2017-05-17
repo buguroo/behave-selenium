@@ -10,14 +10,15 @@ def _regex_matcher(regex, line):
 def _check_lines(do_match, shows):
     try:
         while True:
-            if do_match((yield)):
+            line = yield
+            if do_match(line):
                 if not shows:
-                    assert False, row
+                    assert False, line
                 else:
                     return
     except GeneratorExit as exc:
         if shows:
-            assert False, row
+            assert False
 
 
 def i_see_the_string(context, string):
