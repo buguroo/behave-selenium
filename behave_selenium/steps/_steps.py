@@ -1,3 +1,4 @@
+import ast
 import importlib
 
 from .browser import Browser
@@ -8,10 +9,16 @@ def i_open_the_browser(context, alias):
     Launch the browser using the data provided in the table.
 
     """
+    def eval_value(value):
+        if value.startswith('`') and value.endswith('`'):
+            return ast.literal_eval(value[1:-1])
+        else:
+            return value
+
     context.table.require_column("name")
     context.table.require_column("value")
 
-    attrs = {row["name"]: row["value"]
+    attrs = {row["name"]: eval_value(row["value"])
              for row in context.table
              if row["value"] != "---"}
 
