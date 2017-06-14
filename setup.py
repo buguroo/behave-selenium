@@ -8,7 +8,7 @@ import os
 HERE = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(HERE, 'README.rst')).read()
 
-VERSION = '0.0.2'
+VERSION = '0.0.3'
 
 setup(name='behave-selenium',
       version=VERSION,
@@ -28,7 +28,8 @@ setup(name='behave-selenium',
       license='LGPLv3',
       packages=["behave_selenium",
                 "behave_selenium.steps",
-                "behave_selenium.steps.stepcollection"],
+                "behave_selenium.steps.stepcollection",
+                "behave_selenium.steps.naturalsearch"],
       include_package_data=True,
       zip_safe=False,
       install_requires=[
