@@ -11,7 +11,9 @@ def i_open_the_browser(context, alias):
     context.table.require_column("name")
     context.table.require_column("value")
 
-    attrs = {row["name"]: row["value"] for row in context.table}
+    attrs = {row["name"]: row["value"]
+             for row in context.table
+             if row["value"] != "---"}
 
     command_executor = attrs.pop("executor")
     desired_capabilities = attrs
@@ -20,7 +22,6 @@ def i_open_the_browser(context, alias):
 
     context.selenium_browsers[alias] = browser
     context.selenium_exitstack.enter_context(browser)
-
 
 
 def i_load_the_url_in_the_browser(context, url, alias="default"):
