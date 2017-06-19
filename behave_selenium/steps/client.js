@@ -1,5 +1,4 @@
-<script id="behave-selenium-client">
-/* INSERT THIS HTML IN THE TOPMOST PART OF YOUR PAGE HEAD */
+/* INSERT THIS SCRIPT IN THE TOPMOST PART OF YOUR PAGE HEAD */
 
 if (typeof(window.top.__behave_selenium) != "object") {
     window.top.__behave_selenium = {
@@ -27,5 +26,3 @@ window.console.log = function (msg) {
 
 var elem = document.getElementById("behave-selenium-client");
 elem.parentNode.removeChild(elem);
-
-</script>

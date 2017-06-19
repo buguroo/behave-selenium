@@ -4,6 +4,7 @@ from datetime import timedelta
 from time import sleep
 import contextlib
 import io
+import os
 import queue
 import threading
 import warnings
@@ -12,6 +13,11 @@ from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 
 IOHandler = namedtuple('IOHandler', ['thread', 'queue'])
+
+HERE = os.path.dirname(__file__)
+
+with open(os.path.join(HERE, "client.js"), "r") as client:
+    JS_CLIENT = client.read()
 
 
 class Browser:
@@ -26,6 +32,7 @@ class Browser:
         self.driver_lock = threading.Lock()
         self.running = False
         self.wait_time = 0.1
+        self.init_timeout = 3
 
     @contextlib.contextmanager
     def driver(self):
@@ -76,6 +83,22 @@ class Browser:
 
     def initialize(self):
         self.running = True
+        with self.driver() as driver:
+            timeout = datetime.today() + timedelta(seconds=self.init_timeout)
+            client_found = False
+            while datetime.today() < timeout:
+                try:
+                    driver.execute_script("return window.__behave_selenium;")
+                except WebDriverException as exc:
+                    sleep(self.wait_time)
+                else:
+                    client_found = True
+                    break
+
+            if not client_found:
+                # Install client from Selenium
+                driver.execute_script(JS_CLIENT)
+
         self.register_console_io()
         self.register_DOM_io()
 
@@ -90,7 +113,6 @@ class Browser:
             command_executor=self.command_executor,
             desired_capabilities=self.desired_capabilities)
         self.start_time = datetime.today()
-        self.initialize()
 
     def __exit__(self, *_):
         self._driver.close()
@@ -126,7 +148,6 @@ class Browser:
                         # All readers finished, we exit
                         break
             else:
-                print(line)
                 for check in checks.copy():
                     try:
                         check.send(line)
@@ -140,6 +161,7 @@ class Browser:
     def get(self, url):
         self.finalize()
         with self.driver() as driver:
+            # This will wait for page to load
             result = driver.get(url)
         self.initialize()
         return result
