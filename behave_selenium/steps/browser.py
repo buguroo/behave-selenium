@@ -54,7 +54,11 @@ class Browser:
                         last_result = result
                     else:
                         last_result = None
-                        sleep(self.wait_time)
+
+            if last_result is None:
+                # Sleep with the driver released to allow other threads
+                # to acquire the lock.
+                sleep(self.wait_time)
 
     def register_console_io(self):
         pool_script = """return window.__behave_selenium["log"].shift();"""
