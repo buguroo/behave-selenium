@@ -8,7 +8,7 @@ import os
 HERE = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(HERE, 'README.rst')).read()
 
-VERSION = '0.0.6'
+VERSION = '0.0.7'
 
 setup(name='behave-selenium',
       version=VERSION,
