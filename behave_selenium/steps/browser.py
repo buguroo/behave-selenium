@@ -119,7 +119,7 @@ class Browser:
         self.start_time = datetime.today()
 
     def __exit__(self, *_):
-        self._driver.close()
+        self._driver.quit()
         self.finalize()
 
     def check_stream(self, stream, *checks, timeout=None, encoding='utf-8'):
