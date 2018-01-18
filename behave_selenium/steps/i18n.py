@@ -10,11 +10,12 @@ languages = {
             'inspecting "{stream}" of "{alias}" happens that',
             'inspecting "{stream}" of "{alias}", in "{timeout:d}" seconds or less, happens that',
             'inspecting "{stream}" happens that',
-            'inspecting "{stream}" happens, in "{timeout:d}" seconds or less, that',
-        ],
+            'inspecting "{stream}" happens, in "{timeout:d}" seconds or less, that'],
         'the_browser_holds_that': [
             'the browser "{alias}" holds that',
-            'the browser holds that']
+            'the browser holds that'],
+        'i_run_the_following_javascript_code': [
+            'I run the following javascript code']
     },
     'es': {
         'i_open_the_browser': [
@@ -31,6 +32,8 @@ languages = {
         ],
         'the_browser_holds_that': [
             'en el navegador "{alias}" se cumple que',
-            'en el navegador se cumple que']
+            'en el navegador se cumple que'],
+        'i_run_the_following_javascript_code': [
+            'ejecuto el siguiente código javascript']
     }
 }
