@@ -119,8 +119,8 @@ class Browser:
         self.start_time = datetime.today()
 
     def __exit__(self, *_):
-        self._driver.quit()
         self.finalize()
+        self._driver.quit()
 
     def check_stream(self, stream, *checks, timeout=None, encoding='utf-8'):
         checks = list(checks)
