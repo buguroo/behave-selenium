@@ -15,7 +15,8 @@ languages = {
             'the browser "{alias}" holds that',
             'the browser holds that'],
         'i_run_the_following_javascript_code': [
-            'I run the following javascript code']
+            'I run the following javascript code',
+            'I run the following javascript code in the browser "{alias}"']
     },
     'es': {
         'i_open_the_browser': [
@@ -34,6 +35,7 @@ languages = {
             'en el navegador "{alias}" se cumple que',
             'en el navegador se cumple que'],
         'i_run_the_following_javascript_code': [
-            'ejecuto el siguiente código javascript']
+            'ejecuto el siguiente código javascript',
+            'ejecuto el siguiente código javascript en el navegador "{alias}"']
     }
 }
