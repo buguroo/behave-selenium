@@ -51,3 +51,7 @@ def inspecting_of_happens_that(context, stream, alias="default", timeout=None):
 
 def the_browser_holds_that(context, alias="default"):
     assert context.selenium_browsers[alias].execute_script(context.text)
+
+
+def i_run_the_following_javascript_code(context, alias="default"):
+    context.selenium_browsers[alias].execute_script(context.text)
