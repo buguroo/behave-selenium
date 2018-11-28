@@ -7,10 +7,10 @@ languages = {
             'I load the page "{url}"',
             'I load the page "{url}" in the browser "{alias}"'],
         'inspecting_of_happens_that': [
-            'inspecting "{stream}" of "{alias}" happens that',
-            'inspecting "{stream}" of "{alias}", in "{timeout:d}" seconds or less, happens that',
             'inspecting "{stream}" happens that',
-            'inspecting "{stream}" happens, in "{timeout:d}" seconds or less, that'],
+            'inspecting "{stream}" happens, in "{timeout:d}" seconds or less, that',
+            'inspecting "{stream}" of "{alias}" happens that',
+            'inspecting "{stream}" of "{alias}", in "{timeout:d}" seconds or less, happens that'],
         'the_browser_holds_that': [
             'the browser "{alias}" holds that',
             'the browser holds that'],
